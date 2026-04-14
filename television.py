@@ -21,9 +21,12 @@ class Television:
         Changes value of the muted variable if television is on. Saves set volume before changing it to the minimum volume.
         """
         if self.__status == True:
-            self.__before = self.__volume
+            if self.__muted == False:
+                self.__before = self.__volume
+                self.__volume = Television.MIN_VOLUME
+            else:
+                self.__volume = self.__before
             self.__muted = not self.__muted
-            self.__volume = Television.MIN_VOLUME
     def channel_up(self):
         """
         Increases value of channel variable if television is on and variable is not at max value. Sets to minimum value for channel otherwise
@@ -45,7 +48,6 @@ class Television:
     def volume_up(self):
         """
         Increases volume if television is on and not muted. If television is muted, unmutes and increases volume. Volume does not change if it is at the max.
-        :return:
         """
         if self.__status == True:
             if self.__muted == True:
@@ -58,7 +60,6 @@ class Television:
     def volume_down(self):
         """
         Decreases volume if television is on a not muted. If television is muted, unmuted then decreases volume. Volume does not change if it is at the min.
-        :return:
         """
         if self.__status == True:
             if self.__muted == True:
@@ -68,7 +69,7 @@ class Television:
                 pass
             else:
                 self.__volume -= 1
-    def __str__(self):
+    def __str__(self) -> str:
         """
         :return: Statement reporting state of television's power, channel, and volume
         """
